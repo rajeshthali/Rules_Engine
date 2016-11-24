@@ -1,0 +1,210 @@
+<blank-card id="my-card">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="css/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.js"></script>
+    <style type="text/css">
+    .wrapper {
+        width: 100%;
+    }
+    
+    .action-details {
+        min-height: 150px;
+    }
+    </style>
+    <script>
+    $(function() {
+        $(".accordion").accordion();
+    });
+    </script>
+    <!-- <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Rule Group details</b></div> 
+<table>
+    <tr>
+        <td><label>Rule Group Name</label></td>
+        <td><label>Rule Group Description</label></td>
+        <td><label>Version</label></td>
+    </tr>
+    <tr>
+        <td><input type="text" name="lastName" ng-model="user.last" ng-minlength="3" ng-maxlength="10"></td>
+        <td><input type="text" name="lastName2" ng-model="user.last2" ng-minlength="3" ng-maxlength="10"></td>
+        <td><input type="text" name="lastName3" ng-model="user.last3" ng-minlength="3" ng-maxlength="10"></td>
+    </tr>
+
+    <tr>
+        <td><label>Start Date</label></td>
+    </tr>
+    <tr>
+        <td><input type="text" ng-model="date" jqdatepicker /></td>
+    </tr>
+</table>
+</div>
+</div> -->
+    <div class="wrapper container">
+        <div ng-controller="QueryBuilderCtrl">
+            <div class="alert alert-info">
+                <strong>Output:</strong>
+                <span ng-bind-html="output"></span>
+            </div>
+            <query-builder group="filter.group"></query-builder>
+            
+
+
+
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                
+<div class="card">
+                    <div class="card-header" role="tab" id="headingThree">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            <h5 class="mb-0">
+          Rule Group Details
+      </h5>
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse in" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="card-block">
+                            <div class="panel panel-default well">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Rule Group Name</th>
+                                            <th>Version</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" name="ruleGroupName" ng-model="ruleGroupName" ng-minlength="3" ng-maxlength="20">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="version1" ng-model="version" ng-minlength="3" ng-maxlength="10">
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="startDate" jqdatepicker />
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="text" ng-model="endDate" jqdatepicker />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <h5 class="mb-0">
+          Rule Details
+      </h5>
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="card-block">
+                            <div class="panel panel-default well">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Rule Name</th>
+                                            <th>Version</th>
+                                            <th>Rule Valid From</th>
+                                            <th>Rule Valid To</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" name="ruleName" ng-model="ruleName" ng-minlength="3" ng-maxlength="20">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="version2" ng-model="version2" ng-minlength="3" ng-maxlength="10">
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="validFrom" jqdatepicker />
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="text" ng-model="validTo" jqdatepicker />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingTwo">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <h5 class="mb-0">
+          Action Details
+      </h5>
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="card-block">
+                            <div class="panel panel-default well">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Action 1</th>
+                                            <th>Action 2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select ng-options="action1 as action1.name for action1 in actions1" ng-model="selectedAction1" ng-change="changedValue1(selectedAction1)" class="form-control input-sm">
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select ng-options="action2 as action2.name for action2 in actions2" ng-model="selectedAction2" ng-change="changedValue2(selectedAction2)" class="form-control input-sm">
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/ng-template" id="/queryBuilderDirective.html">
+            <div class="alert alert-warning alert-group">
+                <div class="form-inline">
+                    <select ng-options="o.name as o.name for o in operators" ng-model="group.operator" class="form-control input-sm"></select>
+                    <button style="margin-left: 5px" ng-click="addCondition()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
+                    <button style="margin-left: 5px" ng-click="addGroup()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
+                    <button style="margin-left: 5px" ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
+                </div>
+                <div class="group-conditions">
+                    <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
+                        <br>
+                        <div ng-switch="rule.hasOwnProperty('group')">
+                            <div ng-switch-when="true">
+                                <query-builder group="rule.group"></query-builder>
+                            </div>
+                            <div ng-switch-default="ng-switch-default">
+                                <div class="form-inline">
+                                    <select ng-options="t.name as t.name for t in fields" ng-model="rule.field" class="form-control input-sm"></select>
+                                    <select style="margin-left: 5px" ng-options="c.name as c.name for c in conditions" ng-model="rule.condition" class="form-control input-sm"></select>
+                                    <input style="margin-left: 5px" type="text" ng-model="rule.data" class="form-control input-sm" />
+                                    <button style="margin-left: 5px" ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <button type="submit" class="btn btn-primary btn-large pull-right" ng-click="submitted=true">Submit</button>
+    </div>
+</blank-card>
