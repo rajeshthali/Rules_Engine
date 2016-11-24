@@ -44,13 +44,15 @@ define([
             name: 'Predix Seed',
             session: {},
             tabs: [
-                { icon: 'fa-tachometer', state: 'dashboards', label: 'Dashboards' }, {
+                { icon: 'fa-tachometer', state: 'dashboards', label: 'Dashboards' }, 
+                {
                     icon: 'fa-file-o',
                     state: 'blankpage',
-                    label: 'Formula Engine',
-                    subitems: [
-                        { state: 'blanksubpage', label: 'Blank Sub Page' }
-                    ]
+                    label: 'Formula Engine'
+                 }, {
+                    icon: 'fa-file-o',
+                    state: 'ruleslist',
+                    label: 'Rules List'
                 }
             ]
         };

@@ -39,9 +39,10 @@ define(['angular', 'angular-ui-router'], function(angular) {
                 url: '/blankpage',
                 templateUrl: 'views/blank-page.html'
             })
-            .state('blanksubpage', {
-                url: '/blanksubpage',
-                templateUrl: 'views/blank-sub-page.html'
+            .state('ruleslist', {
+                url: '/ruleslist',
+                templateUrl: 'views/display-rules.html',
+                controller : 'RulesDisplayController',
             });
 
 

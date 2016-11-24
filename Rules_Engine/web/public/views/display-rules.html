@@ -1,0 +1,49 @@
+<blank-card id="second-card">
+ <div class="tab-content details-tab-base-waste">
+	<h1>RULES GROUP LIST</h1>
+	 </div>
+	 <img alt="" class="loading_image" ng-show=isLoading src="images/25.gif">
+	 <div>
+             <table class="table dataTable table-bordered" border="1">
+                  <thead>
+                    <tr>
+						<th class="essential" class="nowrap">Rule Group Name</th>
+						<th class="essential" class="nowrap">Version</th>
+						<th class="essential" class="nowrap">Rule Name</th>
+						<th class="essential" class="nowrap">Rule Version</th>
+						<th class="essential" class="nowrap">Rule Text</th>
+						<th class="essential" class="nowrap">Action</th>
+						<th class="essential" class="nowrap">Exucute/Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="rule in rulesList.ruleEngineList">
+						<td>{{rulesList.ruleGroupObject.ruleGroupName}}</td>
+						<td>{{rulesList.ruleGroupObject.version}}</td>
+						<td>{{rule.ruleName}}</td>
+						<td>{{rule.ruleVersion}}</td>
+						<td>{{rule.ruleText}}</td>
+						<td>{{rule.ruleActionText}}</td>
+						<td>Exucute/Edit</td>
+                    </tr>
+                 </tbody>
+			</table>
+		</div>
+		
+		<!-- <table class="table">
+	   <tr ng-repeat="rule in rulesList.ruleEngineList">
+        <td>{{rulesList.ruleGroupObject.ruleGroupName}}</td>
+						<td>{{rulesList.ruleGroupObject.version}}</td>
+						<td>{{rule.ruleName}}</td>
+						<td>{{rule.ruleVersion}}</td>
+						<td>{{rule.ruleText}}</td>
+						<td>{{rule.ruleActionText}}</td>
+						<td>Test</td>
+      </tr>
+    </table>
+	View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.
+
+    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+     -->
+      <hr />
+</blank-card>
