@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence 
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit 
+        name="Application" 
+        transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+       <properties>
+			<property name="hibernate.archive.autodetection" value="class" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+			
+			<!-- <property name="hibernate.connection.url" value="jdbc:postgresql://10.72.6.143:5432/df6aea5d8220644a991253613e3a1bbe0" />
+			<property name="hibernate.connection.username" value="udb842e214be54190b87ee85de402894c" />
+			<property name="hibernate.connection.password" value="4adae20c79bc4fa783dc8cc04622f09e" /> -->
+		
+ 	            <property name="hibernate.connection.url" value="jdbc:postgresql://10.72.6.143:5432/d843f9e4b4af74a10a3d3fc2ad1512f5f" />
+			<property name="hibernate.connection.username" value="u047de68e1a744cb0ac11b51aef0740e9" />
+			<property name="hibernate.connection.password" value="1041d7d45824453e9df8691f6243411d" />
+			
+			<!-- <property name="hibernate.show_sql" value="true"/> 
+			<property name="hibernate.flushMode" value="FLUSH_AUTO" />-->
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+		</properties>
+    </persistence-unit>
+    
+    
+</persistence>

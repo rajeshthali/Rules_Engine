@@ -1,0 +1,11 @@
+---
+applications:
+  - name: predix-formula-rule-engine-2
+    buildpack: java_buildpack
+    path: target/FarmulaRuleEngine-1.0.jar
+services:
+    - EHS-tcs-postgres
+  #  - fa_uaa_instance
+   # - formula_postgres_service_14Sept_instance
+
+

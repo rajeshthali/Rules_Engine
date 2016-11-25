@@ -1,0 +1,18 @@
+#security:
+#    oauth2:
+#        client:
+#            client-id: fa_uaa_client_id
+#            client-secret: fa_uaa_client_secret
+#        resource:
+#            id: service
+#            userInfoUri: https://bf1f4a2e-e27b-4049-a6be-c20d4ca6acbf.predix-uaa.run.aws-usw02-pr.ice.predix.io/userinfo
+#            token-info-uri: https://bf1f4a2e-e27b-4049-a6be-c20d4ca6acbf.predix-uaa.run.aws-usw02-pr.ice.predix.io/check_token
+
+#security:
+#    oauth2:
+#        client:
+#            client-id: uaa-client
+#            client-secret: uaa-client
+#        resource:
+#            userInfoUri: https://12493575-9346-4833-8aba-1b13ef8a14fa.predix-uaa.run.aws-usw02-pr.ice.predix.io/userinfo
+#            token-info-uri: https://12493575-9346-4833-8aba-1b13ef8a14fa.predix-uaa.run.aws-usw02-pr.ice.predix.io/check_token
