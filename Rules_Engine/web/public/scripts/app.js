@@ -47,12 +47,12 @@ define([
                 { icon: 'fa-tachometer', state: 'dashboards', label: 'Dashboards' }, 
                 {
                     icon: 'fa-file-o',
-                    state: 'blankpage',
-                    label: 'Formula Engine'
+                    state: 'addNewRuleGroup',
+                    label: 'Add New Rule Group'
                  }, {
                     icon: 'fa-file-o',
-                    state: 'ruleslist',
-                    label: 'Rules List'
+                    state: 'viewRules',
+                    label: 'View Executed Rules'
                 }
             ]
         };

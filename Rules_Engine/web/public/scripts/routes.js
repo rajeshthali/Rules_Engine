@@ -32,18 +32,44 @@ define(['angular', 'angular-ui-router'], function(angular) {
             .state('dashboards', {
                 //parent: 'secure',
                 url: '/dashboards',
-                templateUrl: 'views/dashboards.html',
-                controller: 'DashboardsCtrl'
+                templateUrl: 'views/display-rules.html',
+                controller : 'RulesDisplayController'
             })
-            .state('blankpage', {
-                url: '/blankpage',
+            .state('addNewRuleGroup', {
+                url: '/addNewRuleGroup',
                 templateUrl: 'views/blank-page.html'
             })
-            .state('ruleslist', {
-                url: '/ruleslist',
-                templateUrl: 'views/display-rules.html',
-                controller : 'RulesDisplayController',
-            });
+            .state('viewRules', {
+                url: '/viewRules',
+                templateUrl: 'views/blank-sub-page.html'
+            })
+            .state('executeRule', {
+                url: '/executeRule/{rulesId}',
+                views: {
+                     '': {
+                     	templateUrl: 'views/rules-details.html',
+                     	controller : 'RulesDetailsController'
+                     }
+                 }
+               })
+             .state('editRule', {
+                url: '/editRule/{rulesId}',
+                 views: {
+                    '': {
+                    	templateUrl: 'views/blank-page.html'
+                    }
+                }
+              })
+            .state('rulesDetails', {
+                url: '/rulesDetails/{rulesId}',
+                views: {
+                    '': {
+                    	templateUrl: 'views/rules-details.html',
+                    	controller : 'RulesDetailsController'
+                    }
+                }
+               });
+            
 
 
         $urlRouterProvider.otherwise(function ($injector) {

@@ -1,0 +1,106 @@
+<blank-card id="second-card">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="css/styles.css" rel="stylesheet">
+   <img alt="" class="loading_image" ng-show="isLoading" src="images/25.gif">
+  <div ng-show="!isLoading" class="container" >
+       <div class="form-group">
+		<div class="col-xs-4"> <a ui-sref="dashboards">Back</a></div>
+		<div class="col-xs-4"><b>{{rulesDetails.ruleName}}</b></div>
+		<div class="col-xs-4"><button type="button" class="btn btn-primary btn-sm"  ng-click="forwardToEdit()">Edit</button></div>
+   		
+   		</div>
+   		<br/>
+   		<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+   	 <div class="col-xs-12"><b>RULE DETAILS</b></div>
+	 <div class="col-xs-12"><hr/></div>
+	 <div>
+      <div class="col-xs-3">
+        <label class="labelColor">Rule Name</label>
+      </div>
+      <div class="col-xs-3">
+        <label class="labelColor">Rule Description</label>
+       </div>
+      <div class="col-xs-3">
+        <label class="labelColor">Version</label>
+       </div>
+       <div class="col-xs-3">
+        <label class="labelColor">Rule Valid From</label>
+       </div>
+      <div class="col-xs-3">
+        <label>{{rulesDetails.ruleName}}</label>
+      </div>
+      <div class="col-xs-3">
+        <label>{{rulesDetails.ruleDesc}}</label>
+       </div>
+      <div class="col-xs-3">
+        <label>{{rulesDetails.ruleVersion}}</label>
+       </div>
+       <div class="col-xs-3">
+        <label>{{rulesDetails.ruleValidFrom}}</label>
+       </div>
+       <br/>
+       <div class="col-xs-12">
+        <label class="labelColor">Rule Valid To</label>
+      </div>
+       <div class="col-xs-12">
+        <label>{{rulesDetails.ruleValidTo}}</label>
+      </div>
+    </div>
+    
+    
+    
+   <br/>
+   <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+    <div>
+	<div class="col-xs-12"><b>RULE CONDITIONS</b></div>
+	 <div class="col-xs-12"><hr/></div>
+	 <div>
+      <div class="col-xs-3">
+        <label class="labelColor">Select Parameters</label>
+      </div>
+      <div class="col-xs-9">
+        <label class="labelColor">Select Operators</label>
+       </div>
+        <div class="col-xs-3">
+        <label>{{rulesDetails.ruleConditionText}}</label>
+      </div>
+      <div class="col-xs-9">
+        <label>{{rulesDetails.ruleOperator}}</label>
+       </div>
+       </div>
+   </div>
+   
+   <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+    <div>
+	<div class="col-xs-12"><b>RULE ACTIONS</b></div>
+	  <div class="col-xs-12"><hr/></div>
+	 <div>
+      <div class="col-xs-3">
+        <label class="labelColor">Select Action</label>
+      </div>
+      <div class="col-xs-9">
+        <label class="labelColor">Select Formula</label>
+       </div>
+        <div class="col-xs-3">
+        <label>{{rulesDetails.ruleOperator}}</label>
+      </div>
+      <div class="col-xs-9">
+        <label>{{rulesDetails.ruleActionText}}</label>
+       </div>
+       </div>
+   </div>
+    <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+    <div>
+	<div class="col-xs-12"><b>RULE TEXT</b></div>
+	  <div class="col-xs-12"><hr/></div>
+	  <div>
+      <div class="col-xs-12">
+        <label class="labelColor">Condition and Action</label>
+      </div>
+         <div class="col-xs-12">
+        <label>{{rulesDetails.ruleText}}</label>
+       </div>
+       </div>
+   </div>
+   </div>
+</blank-card>

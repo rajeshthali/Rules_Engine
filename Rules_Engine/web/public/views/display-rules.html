@@ -1,49 +1,62 @@
 <blank-card id="second-card">
- <div class="tab-content details-tab-base-waste">
-	<h1>RULES GROUP LIST</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <div class="tab-content details-tab-base-waste">
+	<b>RULES GROUP LIST</b>
 	 </div>
-	 <img alt="" class="loading_image" ng-show=isLoading src="images/25.gif">
-	 <div>
-             <table class="table dataTable table-bordered" border="1">
+	   <hr />
+	 <img alt="" class="loading_image" ng-show="isLoading" src="images/25.gif">
+	 
+	   <div ng-show="!isLoading">
+	        
+             <table class="table">
                   <thead>
                     <tr>
-						<th class="essential" class="nowrap">Rule Group Name</th>
-						<th class="essential" class="nowrap">Version</th>
-						<th class="essential" class="nowrap">Rule Name</th>
-						<th class="essential" class="nowrap">Rule Version</th>
-						<th class="essential" class="nowrap">Rule Text</th>
-						<th class="essential" class="nowrap">Action</th>
-						<th class="essential" class="nowrap">Exucute/Edit</th>
+						<th class="essential">Rule Group Name</th>
+						<th class="essential">Version</th>
+						<th class="essential">Rule Name</th>
+						<th class="essential">Rule Version</th>
+						<th class="essential">Rule Text</th>
+						<th class="essential">Action</th>
+						<th class="essential">Exucute/Edit</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="rule in rulesList.ruleEngineList">
+					<tr ng-repeat="rule in rulesList1">
 						<td>{{rulesList.ruleGroupObject.ruleGroupName}}</td>
 						<td>{{rulesList.ruleGroupObject.version}}</td>
-						<td>{{rule.ruleName}}</td>
+						<!--<td>{{rule.ruleName}}</td>  -->
+						<td><a ui-sref="rulesDetails({rulesId: rule.ruleId})">{{rule.ruleName}}</a></td>
 						<td>{{rule.ruleVersion}}</td>
 						<td>{{rule.ruleText}}</td>
 						<td>{{rule.ruleActionText}}</td>
-						<td>Exucute/Edit</td>
+						<!-- <td><a ui-sref="executeRule({rulesId: rule.ruleId})">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleId})">Edit</a></td> -->
+						<td><a href="#" ng-click ="openRuleExucutionPopup(rule.ruleId)">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleId})">Edit</a></td> 
                     </tr>
                  </tbody>
 			</table>
+			<!-- pager -->
+			
+			<div class="text-right">
+	        <ul ng-if="pager.pages.length" class="pagination">
+	            <li ng-class="{disabled:pager.currentPage === 1}">
+	                <a ng-click="setPage(1)">First</a>
+	            </li>
+	            <li ng-class="{disabled:pager.currentPage === 1}">
+	                <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+	            </li>
+	            <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+	                <a ng-click="setPage(page)">{{page}}</a>
+	            </li>               
+	            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+	                <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+	            </li>
+	            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+	                <a ng-click="setPage(pager.totalPages)">Last</a>
+	            </li>
+	        </ul>
+	         </div>
 		</div>
 		
-		<!-- <table class="table">
-	   <tr ng-repeat="rule in rulesList.ruleEngineList">
-        <td>{{rulesList.ruleGroupObject.ruleGroupName}}</td>
-						<td>{{rulesList.ruleGroupObject.version}}</td>
-						<td>{{rule.ruleName}}</td>
-						<td>{{rule.ruleVersion}}</td>
-						<td>{{rule.ruleText}}</td>
-						<td>{{rule.ruleActionText}}</td>
-						<td>Test</td>
-      </tr>
-    </table>
-	View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.
-
-    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
-     -->
+		
       <hr />
 </blank-card>

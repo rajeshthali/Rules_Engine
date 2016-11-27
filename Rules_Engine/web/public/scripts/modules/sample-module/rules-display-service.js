@@ -12,7 +12,18 @@ define(['angular', './sample-module'], function(angular, sampleModule) {
    						if (cb)
    							cb(response);
    					});
-                  }	
+                  },
+                  
+             getRuleDetails : function(ruleId , cb) {
+      	          return $http({
+ 						method : 'GET',
+ 						url : 'https://predix-formula-rule-engine-2.run.aws-usw02-pr.ice.predix.io/rulesEngine/ruleDetailsByRuleId/'+ruleId,
+ 					}).success(function(response) {
+ 						}).success(function(response) {
+ 						if (cb)
+ 							cb(response);
+ 					});
+                }
          };
     }]);
 });
