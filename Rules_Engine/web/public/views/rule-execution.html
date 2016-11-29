@@ -1,18 +1,30 @@
-<div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Confirmation</h4>
-            </div>
-            <div class="modal-body">
-                <p>Do you want to save changes you made to document before closing?</p>
-                <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<blank-card id="third-card">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="css/styles.css" rel="stylesheet">
+   <img alt="" class="loading_image" ng-show="isLoading" src="images/25.gif">
+  <div ng-show="!isLoading" class="container" >
+    <div class="form-group">
+		<div class="col-xs-4"> <a ui-sref="dashboards">Back</a></div>
+		<div class="col-xs-8"><b>Rule Name : {{rulesDetails.ruleName}}</b></div>
+	</div>
+	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+	 <div class="col-xs-12"><b>RULE CONDITIONS PARAMETERS</b></div>
+	 <div class="col-xs-12"><hr/></div>
+	 <div ng-repeat="ruleParameter in conditionParameterMap.conditionParameter">
+	    <div class="form-group">
+	   <label for="usr" class ="col-xs-2">{{ruleParameter.key}}</label>
+       <input type="text" id="usr">
+     </div>
+     </div>
+	 <div class="col-xs-12"><b>RULE ACTIONS PARAMETERS</b></div>
+	 <div class="col-xs-12"><hr/></div>
+	 <div ng-repeat="ruleParameter in formulaParameterMap.formulaParameter">
+	    <div class="form-group">
+		   <label for="usr" class ="col-xs-2">{{ruleParameter.key}}</label>
+	       <input type="text" id="usr">
+     	</div>
+      </div>
+  <button type="button" class="btn btn-default">Cancel</button>
+  <button type="button" class="btn btn-success">Execute</button>
+  </div>
+</blank-card>

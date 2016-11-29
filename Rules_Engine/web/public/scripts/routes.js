@@ -44,11 +44,11 @@ define(['angular', 'angular-ui-router'], function(angular) {
                 templateUrl: 'views/blank-sub-page.html'
             })
             .state('executeRule', {
-                url: '/executeRule/{rulesId}',
+                url: '/executeRule/{rulesId}/{ruleOperator}',
                 views: {
                      '': {
-                     	templateUrl: 'views/rules-details.html',
-                     	controller : 'RulesDetailsController'
+                     	templateUrl: 'views/rule-execution.html',
+                     	controller : 'RulesExecuteController'
                      }
                  }
                })

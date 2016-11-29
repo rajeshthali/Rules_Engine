@@ -1,25 +1,17 @@
 define(['angular', './sample-module'], function (angular, controllers) {
     'use strict';
-    return controllers.controller('RulesDisplayController', ['$scope','RulesDisplayService', function($scope, RulesDisplayService) {
+    return controllers.controller('RulesDisplayController', ['$scope','RulesService', function($scope, RulesService) {
     	
     	 
-        //$scope.dummyItems = _.range(1, 151); // dummy array of items to be paged
-    	$scope.pager = {};
-    	//$scope.setPage = setPage;
-     
+        $scope.pager = {};
+    	
         initController();
         
         $scope.openRuleExucutionPopup = function(ruleId) {
-        	console.log("test--------"+ruleId);
-            var modalInstance = $modal.open({
+          var modalInstance = $modal.open({
                 templateUrl:'rule-execution.html',
                 controller: RuleExuecutionCtrl
-               /* resolve: {
-                    items: function () {
-                        return $scope.items;
-                    }
-                }*/
-            });
+               });
 
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
@@ -29,22 +21,22 @@ define(['angular', './sample-module'], function (angular, controllers) {
         };
 
         function initController() {
-            // initialize to page 1
-            //setPage1(1);
-        	$scope.isLoading = true;
-    		RulesDisplayService.getRulesList(function(res){
+         	$scope.isLoading = true;
+        	RulesService.getRulesList(function(res){
 				$scope.isLoading = false;
-				$scope.rulesList= angular.copy(res[0]);
-				//console.log($scope.rulesList.ruleGroupObject.ruleGroupDesc);
-				 $scope.pager = getPager($scope.rulesList.ruleEngineList.length, 1,5);
-				 $scope.rulesList1 = $scope.rulesList.ruleEngineList.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
-				 console.log("test1");
+				$scope.rulesList = [];
+				console.log(res.length);
+				for (var groupCount = 0; groupCount < res.length; groupCount++) { 
+					for(var ruleCount=0;ruleCount<res[groupCount].ruleEngineList.length;ruleCount++){
+						var temp ={'ruleGroup':res[groupCount].ruleGroupObject, 'ruleDetails':res[groupCount].ruleEngineList[ruleCount]};
+						$scope.rulesList.push(temp);  
+						}
+				}
+				 $scope.pager = getPager($scope.rulesList.length, 1,5);
+				 $scope.rulesList1 = $scope.rulesList.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
 			  });
            
-            // get current page of items
-            //$scope.items = $scope.dummyItems.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
-           
-        };
+          };
         $scope.setPage = function(page) {
         	setPage1(page);
         };
@@ -53,27 +45,11 @@ define(['angular', './sample-module'], function (angular, controllers) {
                 return;
             }
      
-            // get pager object from service
-            
-            loadData();
-            $scope.pager = getPager($scope.rulesList.ruleEngineList.length, page,5);
-            // get current page of items
-            //$scope.items = $scope.dummyItems.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
-            $scope.rulesList1 = $scope.rulesList.ruleEngineList.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
-            console.log("test2");
+             $scope.pager = getPager($scope.rulesList.length, page,5);
+             $scope.rulesList1 = $scope.rulesList.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
         };
     	
-    	var loadData = function() {
-    		$scope.isLoading = true;
-    		RulesDisplayService.getRulesList(function(res){
-				$scope.isLoading = false;
-				$scope.rulesList= angular.copy(res[0]);
-				console.log($scope.rulesList.ruleGroupObject.ruleGroupDesc);
-			  });
-			
-		};
-		
-		 var getPager = function(totalItems, currentPage, pageSize) {
+    	 var getPager = function(totalItems, currentPage, pageSize) {
 	        // default to first page
 	        currentPage = currentPage || 1;
 	 
@@ -113,9 +89,6 @@ define(['angular', './sample-module'], function (angular, controllers) {
 	        	pages.push(i);
 	        }
 	        	
-	 
-	        // return object with all pager properties required by the view
-	        
 	        return {
 	            totalItems: totalItems,
 	            currentPage: currentPage,
@@ -129,14 +102,5 @@ define(['angular', './sample-module'], function (angular, controllers) {
 	        };
 	       // console.log("test");
 		 };
-		//loadData();
-		
-		/*var getRulesList = function() {
-			$scope.isLoading = true;
-			RulesDisplayService.getRulesList1(function(res){
-				$scope.isLoading = false;
-				$scope.rulesList= angular.copy(res);
-			  });
-			};*/
-    }]);
+	    }]);
 });

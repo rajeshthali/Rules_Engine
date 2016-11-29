@@ -22,15 +22,15 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="rule in rulesList1">
-						<td>{{rulesList.ruleGroupObject.ruleGroupName}}</td>
-						<td>{{rulesList.ruleGroupObject.version}}</td>
+						<td>{{rule.ruleGroup.ruleGroupName}}</td>
+						<td>{{rule.ruleGroup.version}}</td>
 						<!--<td>{{rule.ruleName}}</td>  -->
-						<td><a ui-sref="rulesDetails({rulesId: rule.ruleId})">{{rule.ruleName}}</a></td>
-						<td>{{rule.ruleVersion}}</td>
-						<td>{{rule.ruleText}}</td>
-						<td>{{rule.ruleActionText}}</td>
-						<!-- <td><a ui-sref="executeRule({rulesId: rule.ruleId})">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleId})">Edit</a></td> -->
-						<td><a href="#" ng-click ="openRuleExucutionPopup(rule.ruleId)">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleId})">Edit</a></td> 
+						<td><a ui-sref="rulesDetails({rulesId: rule.ruleId})">{{rule.ruleDetails.ruleName}}</a></td>
+						<td>{{rule.ruleDetails.ruleVersion}}</td>
+						<td>{{rule.ruleDetails.ruleText}}</td>
+						<td>{{rule.ruleDetails.ruleActionText}}</td>
+						 <td><a ui-sref="executeRule({rulesId: rule.ruleDetails.ruleId, ruleOperator: rule.ruleDetails.ruleOperator})">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleDetails.ruleId})">Edit</a></td> 
+						<!--<td><a href="#" ng-click ="openRuleExucutionPopup(rule.ruleId)">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleId})">Edit</a></td>--> 
                     </tr>
                  </tbody>
 			</table>
@@ -39,19 +39,19 @@
 			<div class="text-right">
 	        <ul ng-if="pager.pages.length" class="pagination">
 	            <li ng-class="{disabled:pager.currentPage === 1}">
-	                <a ng-click="setPage(1)">First</a>
+	                <a href="#" ng-click="setPage(1)">First</a>
 	            </li>
 	            <li ng-class="{disabled:pager.currentPage === 1}">
-	                <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+	                <a href="#" ng-click="setPage(pager.currentPage - 1)">Previous</a>
 	            </li>
 	            <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
-	                <a ng-click="setPage(page)">{{page}}</a>
+	                <a href="#" ng-click="setPage(page)">{{page}}</a>
 	            </li>               
 	            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-	                <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+	                <a href="#" ng-click="setPage(pager.currentPage + 1)">Next</a>
 	            </li>
 	            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-	                <a ng-click="setPage(pager.totalPages)">Last</a>
+	                <a href="#" ng-click="setPage(pager.totalPages)">Last</a>
 	            </li>
 	        </ul>
 	         </div>
