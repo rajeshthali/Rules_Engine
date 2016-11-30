@@ -2,7 +2,16 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="css/styles.css" rel="stylesheet">
    <img alt="" class="loading_image" ng-show="isLoading" src="images/25.gif">
+   
   <div ng-show="!isLoading" class="container" >
+  <div ng-show="successExecution">
+			<div class="col-xs-12" style="color:green"><b>Rule Executed successfully</b></div>
+	   </div>
+	   <div ng-show="successExecution">
+	   	 <div class="col-xs-2">Result Value</div>
+	   	 <div class="col-xs-10">{{rulesExecutionDetails.outputValue}}</div>
+	   </div>
+	  <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
     <div class="form-group">
 		<div class="col-xs-4"> <a ui-sref="dashboards">Back</a></div>
 		<div class="col-xs-8"><b>Rule Name : {{rulesDetails.ruleName}}</b></div>
@@ -10,21 +19,23 @@
 	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
 	 <div class="col-xs-12"><b>RULE CONDITIONS PARAMETERS</b></div>
 	 <div class="col-xs-12"><hr/></div>
-	 <div ng-repeat="ruleParameter in conditionParameterMap.conditionParameter">
+	 <div ng-repeat="conditionParameter in conditionParameterMap">
 	    <div class="form-group">
-	   <label for="usr" class ="col-xs-2">{{ruleParameter.key}}</label>
-       <input type="text" id="usr">
+	   <label for="usr" class ="col-xs-2">{{conditionParameter.key}}</label>
+       <input type="text" id="usr" ng-model="conditionParameter.value"/>
      </div>
      </div>
+     <div class="col-xs-12"><hr/></div>
 	 <div class="col-xs-12"><b>RULE ACTIONS PARAMETERS</b></div>
 	 <div class="col-xs-12"><hr/></div>
-	 <div ng-repeat="ruleParameter in formulaParameterMap.formulaParameter">
+	 <div ng-repeat="actionParameter in formulaParameterMap">
 	    <div class="form-group">
-		   <label for="usr" class ="col-xs-2">{{ruleParameter.key}}</label>
-	       <input type="text" id="usr">
+		   <label for="usr" class ="col-xs-2">{{actionParameter.key}}</label>
+	       <input type="text" id="usr" ng-model="actionParameter.value" />
      	</div>
       </div>
-  <button type="button" class="btn btn-default">Cancel</button>
-  <button type="button" class="btn btn-success">Execute</button>
+      
+  <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+  <button type="button" class="btn btn-success" ng-click="ruleExecute()">Execute</button>
   </div>
 </blank-card>
