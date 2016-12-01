@@ -24,6 +24,15 @@ define(['angular', './sample-module'], function(angular, sampleModule) {
  							cb(response);
  					});
                 },
+                deleteRule: function(ruleId , cb) {
+                	return $http({
+ 						method : 'GET',
+ 						url : 'https://predix-formula-rule-engine-2.run.aws-usw02-pr.ice.predix.io/rulesEngine/deleteRule?ruleId='+32,
+ 					}).success(function(response) {
+ 						if (cb)
+ 							cb(response);
+ 					});
+                },
                 getRuleExecuteDetails : function(ruleId,ruleOperator, cb) {
                 	    return $http({
    						method : 'GET',
@@ -36,10 +45,10 @@ define(['angular', './sample-module'], function(angular, sampleModule) {
    					});
                   },
                   
-                executeRule: function(ruleId,ruleName,ruleFormulaString,conditionFormulaString,ruleOperator,serviceURL,serviceType,ruleValues,serviceParam, cb) {
+                executeRule: function(ruleId,ruleName,ruleFormulaString,conditionFormulaString,ruleOperator,serviceURL,serviceType,dataId,ruleValues,serviceParam, cb) {
                 	var _paramValues = {
                 			'ruleId':ruleId, 'ruleName': ruleName,'ruleFormulaString':ruleFormulaString,'conditionFormulaString':conditionFormulaString,
-                			'ruleOperator':ruleOperator,'serviceURL':serviceURL,'serviceType':serviceType,'ruleValues':ruleValues,'serviceParam':serviceParam};
+                			'ruleOperator':ruleOperator,'serviceURL':serviceURL,'serviceType':serviceType,'dataId':dataId,'ruleValues':ruleValues,'serviceParam':serviceParam};
                 	
                 	console.log(angular.toJson(_paramValues));
                 	

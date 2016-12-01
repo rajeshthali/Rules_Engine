@@ -5,6 +5,10 @@ define(['angular', './sample-module'], function (angular, controllers) {
          
          function initController() {
         	 $scope.isLoading = true;
+        	 $scope.isCalculateExecute=false;
+        	 $scope.isServiceExecute=false;
+        	 $scope.isDbFunction=false;
+        	 $scope.isDbQuery=false;
         	 $scope.successExecution = false;
         	 RulesService.getRuleExecuteDetails($stateParams.rulesId,$stateParams.ruleOperator ,function(res){
  				$scope.rulesDetails= angular.copy(res);
@@ -21,6 +25,15 @@ define(['angular', './sample-module'], function (angular, controllers) {
  					$scope.formulaParameterMap.push(temp1);
 				 });
  				$scope.isLoading = false;
+ 				if($stateParams.ruleOperator === 'SERVICE') {
+ 					$scope.isServiceExecute = true;
+ 				}else if($stateParams.ruleOperator === 'CALCULATE') {
+ 					$scope.isCalculateExecute = true;
+ 				}else if($stateParams.ruleOperator === 'EXECUTE' && res.qName !== null  ) {
+ 					$scope.isDbQuery = true;
+ 				}else if($stateParams.ruleOperator === 'EXECUTE' && res.fName !== null  ) {
+ 					$scope.isDbFunction = true;
+ 				}
  			  });
  			};
  			
@@ -48,7 +61,7 @@ define(['angular', './sample-module'], function (angular, controllers) {
  				}
  				
  				RulesService.executeRule($scope.rulesDetails.ruleId,$scope.rulesDetails.ruleName,$scope.rulesDetails.ruleFormulaString,$scope.rulesDetails.conditionFormulaString,$stateParams.ruleOperator,
- 						$scope.rulesDetails.serviceURL,$scope.rulesDetails.serviceType,ruleValues,serviceParam ,function(res){
+ 						$scope.rulesDetails.serviceURL,$scope.rulesDetails.serviceType,$scope.rulesDetails.dataId,ruleValues,serviceParam ,function(res){
  				$scope.rulesExecutionDetails= angular.copy(res);
  				$scope.successExecution = true;
  				$scope.isLoading = false;

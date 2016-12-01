@@ -10,32 +10,61 @@
 	   <div ng-show="successExecution">
 	   	 <div class="col-xs-2">Result Value</div>
 	   	 <div class="col-xs-10">{{rulesExecutionDetails.outputValue}}</div>
+	   	  <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
 	   </div>
-	  <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+	 
     <div class="form-group">
 		<div class="col-xs-4"> <a ui-sref="dashboards">Back</a></div>
 		<div class="col-xs-8"><b>Rule Name : {{rulesDetails.ruleName}}</b></div>
+	</div>
+	
+	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
+	 <div class="form-group form-inline" ng-show="isCalculateExecute">
+	    <label for="usr" class ="col-xs-2">Condition Formula</label>
+		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
+		<label for="usr" class ="col-xs-2">Rule Formula</label>
+		<div class="col-xs-4">{{rulesDetails.ruleFormulaString}}</div>
+		
+	</div>
+	 <div class="form-group" ng-show="isServiceExecute">
+		<label for="usr" class ="col-xs-2">Condition Formula</label>
+		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
+		<label for="usr" class ="col-xs-2">Service URL</label>
+		<div class="col-xs-4">{{rulesDetails.serviceURL}}</div>
+	</div>
+	<div class="form-group" ng-show="isDbFunction">
+		<label for="usr" class ="col-xs-2">Condition Formula</label>
+		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
+		<label for="usr" class ="col-xs-3">DataBase Function Name</label>
+		<div class="col-xs-4">{{rulesDetails.fName}}</div>
+	</div>
+	<div class="form-group" ng-show="isDbQuery">
+		<label for="usr" class ="col-xs-2">Condition Formula</label>
+		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
+		<label for="usr" class ="col-xs-3">DataBase Query Name</label>
+		<div class="col-xs-4">{{rulesDetails.qName}}</div>
 	</div>
 	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
 	 <div class="col-xs-12"><b>RULE CONDITIONS PARAMETERS</b></div>
 	 <div class="col-xs-12"><hr/></div>
 	 <div ng-repeat="conditionParameter in conditionParameterMap">
 	    <div class="form-group">
-	   <label for="usr" class ="col-xs-2">{{conditionParameter.key}}</label>
+	   <label for="usr" class ="col-xs-3">{{conditionParameter.key}}</label>
        <input type="text" id="usr" ng-model="conditionParameter.value"/>
      </div>
      </div>
-     <div class="col-xs-12"><hr/></div>
+     <div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
 	 <div class="col-xs-12"><b>RULE ACTIONS PARAMETERS</b></div>
 	 <div class="col-xs-12"><hr/></div>
 	 <div ng-repeat="actionParameter in formulaParameterMap">
 	    <div class="form-group">
-		   <label for="usr" class ="col-xs-2">{{actionParameter.key}}</label>
+		   <label for="usr" class ="col-xs-3">{{actionParameter.key}}</label>
 	       <input type="text" id="usr" ng-model="actionParameter.value" />
      	</div>
       </div>
-      
+    <div>  
   <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
   <button type="button" class="btn btn-success" ng-click="ruleExecute()">Execute</button>
+  </div>
   </div>
 </blank-card>

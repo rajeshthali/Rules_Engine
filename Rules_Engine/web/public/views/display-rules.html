@@ -29,7 +29,7 @@
 						<td>{{rule.ruleDetails.ruleVersion}}</td>
 						<td>{{rule.ruleDetails.ruleText}}</td>
 						<td>{{rule.ruleDetails.ruleActionText}}</td>
-						 <td><a ui-sref="executeRule({rulesId: rule.ruleDetails.ruleId, ruleOperator: rule.ruleDetails.ruleOperator})">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleDetails.ruleId})">Edit</a></td> 
+						 <td><a ui-sref="executeRule({rulesId: rule.ruleDetails.ruleId, ruleOperator: rule.ruleDetails.ruleOperator})">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleDetails.ruleId})">Edit</a>/<a href="#" ng-click ="deleteRule(rule.ruleDetails.ruleId)">Delete</a></td> 
 						<!--<td><a href="#" ng-click ="openRuleExucutionPopup(rule.ruleId)">Execute</a>/<a ui-sref="editRule({rulesId: rule.ruleId})">Edit</a></td>--> 
                     </tr>
                  </tbody>

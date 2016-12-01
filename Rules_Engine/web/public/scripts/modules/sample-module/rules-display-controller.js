@@ -7,7 +7,7 @@ define(['angular', './sample-module'], function (angular, controllers) {
     	
         initController();
         
-        $scope.openRuleExucutionPopup = function(ruleId) {
+      /*  $scope.openRuleExucutionPopup = function(ruleId) {
           var modalInstance = $modal.open({
                 templateUrl:'rule-execution.html',
                 controller: RuleExuecutionCtrl
@@ -18,6 +18,13 @@ define(['angular', './sample-module'], function (angular, controllers) {
             }, function () {
                 //cancel
             });
+        };*/
+        
+        $scope.deleteRule = function(ruleId) {
+        	$scope.isLoading = true;
+        	RulesService.deleteRule(ruleId, function(res){
+        		$scope.isLoading = false;
+        	});
         };
 
         function initController() {
