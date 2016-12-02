@@ -12,8 +12,8 @@ var config = {
 	 * clientId, serverUrl, and base64ClientCredential.
 	 */
 		 uaa: {
-			    clientId: 'Test_Client',
-			    serverUrl: 'https://xxxx.predix-uaa.run.aws-usw02-pr.ice.predix.io',
+			    clientId: 'Test_Rajesh',
+			    serverUrl: 'https://123rajesh.predix-uaa.run.aws-usw02-pr.ice.predix.io',
 			    defaultClientRoute: '/about',
 			    base64ClientCredential: 'VGVzdF9SYWplc2g6MTIzcmFqZXNo'
 			  },
@@ -34,7 +34,7 @@ var config = {
 			  proxy: {
 				    '/api/view-service': {
 				      url: 'https://predix-views.run.aws-usw02-pr.ice.predix.io/api',
-				      instanceId: '74f18206-0df2-4355-a65d-81b3bddcfbf1',
+				      instanceId: '8cf03e3b-3a80-4e9f-93d3-2c2102cffcb7',
 				      pathRewrite: { '^/api/view-service': '/v1'}
 				    }
 				  }

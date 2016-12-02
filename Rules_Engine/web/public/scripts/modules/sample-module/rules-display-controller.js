@@ -23,7 +23,19 @@ define(['angular', './sample-module'], function (angular, controllers) {
         $scope.deleteRule = function(ruleId) {
         	$scope.isLoading = true;
         	RulesService.deleteRule(ruleId, function(res){
-        		$scope.isLoading = false;
+        		RulesService.getRulesList(function(res){
+    				$scope.isLoading = false;
+    				$scope.rulesList = [];
+    				console.log(res.length);
+    				for (var groupCount = 0; groupCount < res.length; groupCount++) { 
+    					for(var ruleCount=0;ruleCount<res[groupCount].ruleEngineList.length;ruleCount++){
+    						var temp ={'ruleGroup':res[groupCount].ruleGroupObject, 'ruleDetails':res[groupCount].ruleEngineList[ruleCount]};
+    						$scope.rulesList.push(temp);  
+    						}
+    				}
+    				 $scope.pager = getPager($scope.rulesList.length, 1,5);
+    				 $scope.rulesList1 = $scope.rulesList.slice($scope.pager.startIndex, $scope.pager.endIndex + 1);
+    			  });
         	});
         };
 
