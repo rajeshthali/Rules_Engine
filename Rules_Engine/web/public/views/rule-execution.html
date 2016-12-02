@@ -20,14 +20,15 @@
 		<div class="col-xs-8"><b>Rule Name : {{rulesDetails.ruleName}}</b></div>
 	</div>
 	
-	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
-	 <div class="form-group form-inline" ng-show="isCalculateExecute">
+	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/>
+	 <div class="form-group" ng-show="isCalculateExecute">
 	    <div class="col-xs-2"><b>Condition Formula</b></div>
 		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
 		<div class="col-xs-2"><b>Rule Formula</b></div>
 		<div class="col-xs-5">{{rulesDetails.ruleFormulaString}}</div>
 		
 	</div>
+	
 	 <div class="form-group" ng-show="isServiceExecute">
 		<div class="col-xs-2"><b>Condition Formula</b></div>
 		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
@@ -45,6 +46,7 @@
 		<div class="col-xs-3">{{rulesDetails.conditionFormulaString}}</div>
 		<div class="col-xs-2"><b>DataBase Query Name</b></div>
 		<div class="col-xs-5">{{rulesDetails.qName}}</div>
+	</div>
 	</div>
 	<div class="col-xs-12"><hr style="border-top: 1px dotted black"/></div>
 	 <div class="col-xs-12"><b>RULE CONDITIONS PARAMETERS</b></div>

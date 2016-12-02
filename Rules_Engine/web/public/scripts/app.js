@@ -75,47 +75,71 @@ define([
 
     predixApp.controller('QueryBuilderCtrl', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
         var initialCond = '';
-        
+
         var param1 = $stateParams.rulesId;
         console.log('param0:' + param1);
+        $scope.success = {};
+        $scope.success.message = true;
+        $scope.outputText = '';
+        $scope.ruleCalculate = {};
+        $scope.ruleCalculate.hide = true;
 
-        if(param1 != undefined && param1 != null && param1 != ''){
+        if (param1 != undefined && param1 != null && param1 != '') {
             console.log('param1:' + param1);
             $http.get("https://predix-formula-rule-engine-2.run.aws-usw02-pr.ice.predix.io/rulesEngine/ruleDetailsByRuleId/" + param1).success(function(data, status) {
                 $scope.existingRuleDetails = data
-                console.log('existingRuleDetails1:' + cleanIt(JSON.stringify($scope.existingRuleDetails.ruleEngineList[0].ruleJson)))
+                    //console.log('existingRuleDetails1:' + cleanIt(JSON.stringify($scope.existingRuleDetails.ruleEngineList[0].ruleJson)))
                 initialCond = JSON.stringify($scope.existingRuleDetails.ruleEngineList[0].ruleJson)
-                
+
                 var myEscapedJSONString = initialCond.replace(/\\n/g, "\\n")
-                                          .replace(/\\'/g, "\\'")
-                                          .replace(/\\"/g, '\\"')
-                                          .replace(/\\&/g, "\\&")
-                                          .replace(/\\r/g, "\\r")
-                                          .replace(/\\t/g, "\\t")
-                                          .replace(/\\b/g, "\\b")
-                                          .replace(/\\f/g, "\\f"); 
+                    .replace(/\\'/g, "\\'")
+                    .replace(/\\"/g, '\\"')
+                    .replace(/\\&/g, "\\&")
+                    .replace(/\\r/g, "\\r")
+                    .replace(/\\t/g, "\\t")
+                    .replace(/\\b/g, "\\b")
+                    .replace(/\\f/g, "\\f");
 
 
-                console.log('initialCond1:' + JSON.parse(JSON.stringify(initialCond)))
+                //console.log('initialCond1:' + JSON.parse(JSON.stringify(initialCond)))
                 $scope.ruleJson = cleanIt(JSON.stringify($scope.existingRuleDetails))
-                console.log('ruleJson:' + $scope.ruleJson)
-                
+                    //console.log('ruleJson:' + $scope.ruleJson)
+                console.log($scope.existingRuleDetails);
+                $scope.ruleGroupName = $scope.existingRuleDetails.ruleGroupObject.ruleGroupName;
+                $scope.ruleGroupDescription = $scope.existingRuleDetails.ruleGroupObject.ruleGroupDesc;
+                $scope.ruleGroupVersion = $scope.existingRuleDetails.ruleGroupObject.version;
+                $scope.ruleGroupStartDate = $scope.existingRuleDetails.ruleGroupObject.startDate;
+
+                $scope.ruleName = $scope.existingRuleDetails.ruleEngineList[0].ruleName;
+                $scope.ruleDescription = $scope.existingRuleDetails.ruleEngineList[0].ruleDesc;
+                $scope.ruleVersion = $scope.existingRuleDetails.ruleEngineList[0].ruleVersion;
+                $scope.ruleValidFrom = $scope.existingRuleDetails.ruleEngineList[0].ruleValidFrom;
+                $scope.ruleValidTo = $scope.existingRuleDetails.ruleEngineList[0].ruleValidTo;
+                $scope.selectedAction1 = $scope.existingRuleDetails.ruleEngineList[0].ruleOperator;
+                /*$scope.selectedAction1 = $scope.existingRuleDetails.selectedFormula1[0].ruleOperator;
+                $scope.selectedAction1 = $scope.existingRuleDetails.selectedFormula2[0].ruleOperator;*/
+                $scope.outputText = $scope.existingRuleDetails.ruleEngineList[0].ruleText;
+                console.log($scope.outputText);
+
+
+                initialCond = '{"group": {"operator": "OR","rules": []}}';
+                $scope.jsonObjCond = JSON.parse(initialCond); 
             })
         } else {
-            $scope.ruleGroupName = 'group name';
-            $scope.ruleGroupDescription = 'group desc';
-            $scope.ruleGroupVersion = 'group version';
-            $scope.ruleGroupStartDate = '2016-11-01';
+            $scope.ruleGroupName = '';
+            $scope.ruleGroupDescription = '';
+            $scope.ruleGroupVersion = '';
+            $scope.ruleGroupStartDate = '';
 
-            $scope.ruleName = 'rule name';
-            $scope.ruleDescription = 'rule desc';
-            $scope.ruleVersion = 'rule version';
-            $scope.ruleValidFrom = '2016-11-01';
-            $scope.ruleValidTo = '2016-11-15';
+            $scope.ruleName = '';
+            $scope.ruleDescription = '';
+            $scope.ruleVersion = '';
+            $scope.ruleValidFrom = '';
+            $scope.ruleValidTo = '';
 
 
-            //$scope.selectedFormula1 = 'Formula2';
-            //$scope.selectedFormula2 = 'Formula3';
+            $scope.selectedFormula1 = 'Formula2';
+            $scope.selectedFormula2 = 'Formula3';
 
             //$scope.selectedAction1 = 'Execute';
 
@@ -130,11 +154,11 @@ define([
             $scope.jsonObjCond = JSON.parse(initialCond);
         }
 
-        console.log('initialCond3:' + initialCond)
-        console.log('existingRuleDetails2:' + JSON.stringify($scope.existingRuleDetails))
-        
 
-        function cleanIt(str){
+
+
+
+        function cleanIt(str) {
             return String(str).replace(/\\n/g, '').replace(/\\/g, '')
         }
 
@@ -166,15 +190,9 @@ define([
             return str_2 + ')';
         }
 
-        function removeHtmlTags(condStr) {
-            return condStr.replace(new RegExp('&lt;', 'g'), '<')
-                .replace(new RegExp('&gt;', 'g'), '>')
-                .replace(new RegExp('<strong>', 'g'), '')
-                .replace(new RegExp('</strong>', 'g'), '');
-        };
-
-        function getLabel(selectedValue){
-            var actions = []
+        function getLabel(selectedValue) {
+            if(selectedValue === undefined)return",";
+            var actions = [];
             if ($scope.selectedAction1 == 'EXECUTE QUERY') {
                 actions = $scope.dropdowns['QUERIES'];
             } else if ($scope.selectedAction1 == 'EXECUTE FUNCTION') {
@@ -185,16 +203,77 @@ define([
                 actions = $scope.dropdowns['FORMULAS'];
             }
 
-            for(var i = 0; i < actions.length; i++){
-                if(selectedValue == actions[i].id){
+            for (var i = 0; i < actions.length; i++) {
+                if (actions[i].id && selectedValue == actions[i].id) {
                     return actions[i].name;
                 }
             }
+
         }
+
+        function removeHtmlTags(condStr) {
+            if (condStr !== null && condStr !== undefined) {
+                return condStr.replace(new RegExp('&lt;', 'g'), '<')
+                    .replace(new RegExp('&gt;', 'g'), '>')
+                    .replace(new RegExp('<strong>', 'g'), '')
+                    .replace(new RegExp('</strong>', 'g'), '');
+            }
+
+        };
 
         $http.get("https://predix-formula-rule-engine-2.run.aws-usw02-pr.ice.predix.io/rulesEngine/retrieveAllDropdowns").success(function(data, status) {
             $scope.dropdowns = data
             console.log('data:' + JSON.stringify(data))
+
+
+
+
+
+            $scope.$watchGroup(['selectedAction1', 'selectedFormula1', 'selectedFormula2'], function(newValue, oldValue) {
+                //if (newValue !== oldValue) {
+                var val2 =getLabel(newValue[2]);
+                if($scope.selectedAction1 !== "CALCULATE"){
+                	val2 = getLabel(newValue[1]);
+                }
+                $scope.output = "( <strong>IF</strong> " + $scope.htmlCond + " <strong>THEN</strong> " + getLabel(newValue[1]) + " <strong>ELSE</strong> " + val2 + " )"
+            
+                $scope.output_2 = "(if" + $scope.htmlCond_2 + " THEN " + '$' + getLabel(newValue[1]) + "," + '$' + val2 + ")"
+                console.log($scope.output_2);
+                $scope.output_2 = removeHtmlTags($scope.output_2)
+                $scope.noHtmlCond = removeHtmlTags($scope.htmlCond)
+                $scope.noHtmlCond_2 = removeHtmlTags($scope.htmlCond_2)
+                    //}
+                   
+                console.log(newValue[1] + " " + newValue[2] + "    new values");
+            });
+
+            $scope.$watch('jsonObjCond', function(newValue) {
+                $scope.jsonStrCond = JSON.stringify(newValue, null, 2);
+                if (newValue !== undefined && newValue !== null) {	
+                	
+                	 var val2 =getLabel($scope.selectedFormula2)
+                     if($scope.selectedAction1 !== "CALCULATE"){
+                     	val2 = getLabel($scope.selectedFormula1)
+                     }
+                     
+                    $scope.htmlCond = computed(newValue.group)
+                    $scope.htmlCond_2 = computed_2(newValue.group)
+                    $scope.output = "( <strong>IF</strong> " + $scope.htmlCond + " <strong>THEN</strong> " + getLabel($scope.selectedFormula1) + " <strong>ELSE</strong> " + val2 + " )"
+                    $scope.output_2 = "(if" + $scope.htmlCond_2 + " THEN " + '$' + getLabel($scope.selectedFormula1) + "," + '$' + val2 + ")"
+
+                    $scope.noHtmlCond = removeHtmlTags($scope.htmlCond)
+                    $scope.noHtmlCond_2 = removeHtmlTags($scope.htmlCond_2)
+                   
+
+                } else {
+                    $scope.output = $scope.outputText;
+                }
+
+            }, true);
+
+            console.log($scope.outputText);
+            $scope.output = $scope.outputText;
+
         })
 
         $scope.jsonStrCond = null;
@@ -205,28 +284,7 @@ define([
         $scope.noHtmlCond_2 = null;
         $scope.output_2 = '';
 
-        $scope.$watchGroup(['selectedAction1', 'selectedFormula1', 'selectedFormula2'], function(newValue, oldValue) {
-            //if (newValue !== oldValue) {
-            $scope.output = "( <strong>IF</strong> " + $scope.htmlCond + " <strong>THEN</strong> " + getLabel(newValue[1]) + " <strong>ELSE</strong> " + getLabel(newValue[2]) + " )"
-            $scope.output_2 = "(if" + $scope.htmlCond_2 + " THEN " + '$' + getLabel(newValue[1]) + "," + '$' + getLabel(newValue[2]) + ")"
 
-            $scope.noHtmlCond = removeHtmlTags($scope.htmlCond)
-            $scope.noHtmlCond_2 = removeHtmlTags($scope.htmlCond_2)
-                //}
-            console.log(newValue[1] + " " + newValue[2]+ "    new values");
-        });
-
-        $scope.$watch('jsonObjCond', function(newValue) {
-            $scope.jsonStrCond = JSON.stringify(newValue, null, 2);
-            $scope.htmlCond = computed(newValue.group)
-            $scope.htmlCond_2 = computed_2(newValue.group)
-
-            $scope.output = "( <strong>IF</strong> " + $scope.htmlCond + " <strong>THEN</strong> " + getLabel($scope.selectedFormula1) + " <strong>ELSE</strong> " + getLabel($scope.selectedFormula2) + " )"
-            $scope.output_2 = "(if" + $scope.htmlCond_2 + " THEN " + '$' + getLabel($scope.selectedFormula1) + "," + '$' + getLabel($scope.selectedFormula2) + ")"
-
-            $scope.noHtmlCond = removeHtmlTags($scope.htmlCond)
-            $scope.noHtmlCond_2 = removeHtmlTags($scope.htmlCond_2)
-        }, true);
 
 
         $scope.ruleAction = [
@@ -238,37 +296,46 @@ define([
 
         //$scope.selectedFormula1.value = $scope.dropdowns
         $scope.onActionChange1 = function(selectedAction1) {
-            console.log('onActionChange1...')
-            var arr = []
-            var actions = [];
-            $scope.ruleFormula = [];
-            console.log($scope.dropdowns + "dropdown");
-            console.log(selectedAction1 + "selectedAction1");
-
-            if (selectedAction1 == 'EXECUTE QUERY') {
-                actions = $scope.dropdowns['QUERIES'];
-            } else if (selectedAction1 == 'EXECUTE FUNCTION') {
-                actions = $scope.dropdowns['FUNCTIONS'];
-            } else if (selectedAction1 == 'SERVICES') {
-                actions = $scope.dropdowns['SERVICES'];
-            } else {
-                actions = $scope.dropdowns['FORMULAS'];
-            }
-            console.log(actions);
-            if (actions === undefined || actions === null || actions === "") {
-                actions = [];
-            }
-
-
-            for (var i = 0; i < actions.length; i++) {
-                if (actions[i].name !== undefined && actions[i].name !== null && actions[i].name !== "") {
-                    arr.push({ label: actions[i].name, value: actions[i].id })
+                console.log('onActionChange1...')
+                $http.get("https://predix-formula-rule-engine-2.run.aws-usw02-pr.ice.predix.io/rulesEngine/retrieveAllDropdowns").success(function(data, status) {
+                    $scope.dropdowns = data
+                    console.log('data:' + JSON.stringify(data))
+                })
+                var arr = []
+                var actions = [];
+                $scope.ruleFormula = [];
+                console.log($scope.dropdowns + "dropdown");
+                console.log(selectedAction1 + "selectedAction1");
+              
+                if (selectedAction1 == 'EXECUTE QUERY' ) {
+                    actions = $scope.dropdowns['QUERIES'];
+                     $scope.ruleCalculate.hide = true;
+                } else if (selectedAction1 == 'EXECUTE FUNCTION') {
+                    actions = $scope.dropdowns['FUNCTIONS'];
+                     $scope.ruleCalculate.hide = true;
+                } else if (selectedAction1 == 'SERVICES') {
+                     $scope.ruleCalculate.hide = true;
+                    actions = $scope.dropdowns['SERVICES'];
+                } else {
+                    actions = $scope.dropdowns['FORMULAS'];
+                    $scope.ruleCalculate.hide = false;
                 }
-                console.log(arr);
-                $scope.ruleFormula = arr
+                console.log(actions);
+                if (actions === undefined || actions === null || actions === "") {
+                    actions = [];
+                }
+
+
+                for (var i = 0; i < actions.length; i++) {
+                    if (actions[i].name !== undefined && actions[i].name !== null && actions[i].name !== "") {
+                        arr.push({ label: actions[i].name, value: actions[i].id })
+                    }
+                    console.log(arr);
+                    $scope.ruleFormula = arr
+                }
+                $scope.selectedFormula1 = $scope.selectedFormula2 = "";
+
             }
-            $scope.selectedFormula1 = $scope.selectedFormula2 = "";
-        }
             //$scope.hello = { name: "helloworld1" };
 
 
@@ -305,59 +372,77 @@ define([
         };
 
         $scope.submitRule = function() {
+        	$scope.isLoading = true;
             console.log($scope.selectedFormula1)
-                switch($scope.selectedAction1){
-                    case "EXECUTE FUNCTION" :
-                        $scope.selectedAction1 = "FUNCTIONS";
-                        break;
-                    case "EXECUTE QUERY" :
-                        $scope.selectedAction1 = "QUERIES";
-                        break;
-                    default : 
-                }
-                    $scope.submitData = {
-
-                        ruleGroupObject: {
-                            "ruleFormulaGroupId": null,
-                            "ruleGroupName": $scope.ruleGroupName,
-                            "ruleGroupDesc": $scope.ruleGroupDescription,
-                            "startDate": $scope.ruleGroupStartDate,
-                            "version": $scope.ruleGroupVersion
-                        },
-                        ruleEngineList: [{
-                            "ruleId": null,
-                            "ruleName": $scope.ruleName,
-                            "ruleDesc": $scope.ruleDescription,
-                            "ruleValidFrom": $scope.ruleValidFrom, //http://jsfiddle.net/kevinj/TAeNF/2/
-                            "ruleValidTo": $scope.ruleValidTo,
-                            "ruleVersion": $scope.ruleVersion,
-                            "ruleText": removeHtmlTags($scope.output_2),
-                            "ruleOperator":  $scope.selectedAction1,
-                            "ruleConditionText": "if"+ $scope.noHtmlCond_2,
-                            "ruleActionText": ('$' + getLabel($scope.selectedFormula1) + "," + '$' + getLabel($scope.selectedFormula2)),
-                            "formulaGroupId": 0,
-                            "ruleFormulaGroup": null,
-                            "ruleFormulaGroupVersion": null,
-                            "ruleEmailList": null,
-                            "externalServiceUrlId": ($scope.selectedAction1 === "SERVICE")? getLabel($scope.selectedFormula1) : 0,
-                            "dbfunctinonId": ($scope.selectedAction1 === "FUNCTIONS")? getLabel($scope.selectedFormula1) : 0,
-                            "dbqueryId": ($scope.selectedAction1 === "QUERIES")? getLabel($scope.selectedFormula1) : 0,
-                            "ruleJson": cleanIt($scope.jsonStrCond),
-                            "otherParameters": null
-
-                        }]
-                    };
-                    console.log('$scope.ruleValidFrom:' + $scope.ruleValidFrom)
-
-                    //Jatin
-                    //Use service to save/update the rule
-                    console.log("submitData:" + JSON.stringify($scope.submitData));
-
+            console.log(getLabel($scope.selectedFormula1))
+            switch ($scope.selectedAction1) {
+                case "EXECUTE FUNCTION":
+                case "EXECUTE QUERY":
+                    $scope.selectedActionNew = "EXECUTE";
                    
+                    break;
+                default:
+                	$scope.selectedActionNew = $scope.selectedAction1
+            }
+            if($scope.selectedAction1 !== "CALCULATE"){
+            	$scope.newRuleActionText = ('$' + getLabel($scope.selectedFormula1) + "," + '$' + getLabel($scope.selectedFormula1));
+            }else{
+            	$scope.newRuleActionText = ('$' + getLabel($scope.selectedFormula1) + "," + '$' + getLabel($scope.selectedFormula2));
+            }
+            
+            
+            console.log(getLabel($scope.selectedFormula1))
+ /*           if($scope.selectedFormula1 === undefined){
+
+            }*/
+        /*    $scope.newRuleActionText = ('$' + getLabel($scope.selectedFormula1) + "," + '$' + getLabel($scope.selectedFormula2))
+            if($scope.selectedAction1 !== "CALCULATE"){
+            	
+            }*/
+            console.log($scope.selectedAction1)
+            $scope.submitData = {                
+                ruleGroupObject: {
+                    "ruleFormulaGroupId": null,
+                    "ruleGroupName": $scope.ruleGroupName,
+                    "ruleGroupDesc": $scope.ruleGroupDescription,
+                    "startDate": $scope.ruleGroupStartDate,
+                    "version": $scope.ruleGroupVersion
+                },
+                ruleEngineList: [{
+                    "ruleId": null,
+                    "ruleName": $scope.ruleName,
+                    "ruleDesc": $scope.ruleDescription,
+                    "ruleValidFrom": $scope.ruleValidFrom, //http://jsfiddle.net/kevinj/TAeNF/2/
+                    "ruleValidTo": $scope.ruleValidTo,
+                    "ruleVersion": $scope.ruleVersion,
+                    "ruleText": removeHtmlTags($scope.output_2),
+                    "ruleOperator": $scope.selectedActionNew,
+                    "ruleConditionText": "if" + $scope.noHtmlCond_2,
+                    "ruleActionText": $scope.newRuleActionText,
+                    "formulaGroupId": 0,
+                    "ruleFormulaGroup": null,
+                    "ruleFormulaGroupVersion": null,
+                    "ruleEmailList": null,
+                    "externalServiceUrlId": ($scope.selectedAction1 === "SERVICES") ? $scope.selectedFormula1 : 0,
+                    "dbfunctinonId": ($scope.selectedAction1 === "EXECUTE FUNCTION") ? $scope.selectedFormula1 : 0,
+                    "dbqueryId": ($scope.selectedAction1 === "EXECUTE QUERY") ? $scope.selectedFormula1 : 0,
+                    "ruleJson": cleanIt($scope.jsonStrCond),
+                    "otherParameters": null
+
+                }]
+            };
+            //console.log('$scope.ruleValidFrom:' + $scope.ruleValidFrom)
+
+            //Jatin
+            //Use service to save/update the rule
+            //console.log("submitData:" + JSON.stringify($scope.submitData));
+            console.log( $scope.submitData)
+
 
             $http.post("https://predix-formula-rule-engine-2.run.aws-usw02-pr.ice.predix.io/rulesEngine/saveRule", JSON.stringify($scope.submitData)).success(function(data, status) {
-                alert('data sent');
                 console.log(data);
+                $scope.success.message = false;
+                $scope.isLoading = false;
             });
 
 
@@ -372,9 +457,8 @@ define([
         return {
             restrict: 'E',
             scope: {
-                group: '='
-                    ,
-                    dropdowns: '=dropdowns'
+                group: '=',
+                dropdowns: '=dropdowns'
             },
             templateUrl: '/queryBuilderDirective.html',
             compile: function(element, attrs) {
@@ -387,13 +471,13 @@ define([
                     ];
 
                     //console.log('----' + JSON.stringify(scope.dropdowns))
-               /*     var actions = scope.dropdowns['FORMULAS']
-                    var arr = []
+                    /*     var actions = scope.dropdowns['FORMULAS']
+                         var arr = []
 
-                    for(var i = 0; i < actions.length; i++){
-                        arr.push({label:actions[i].name, value:actions[i].name})
-                    }
-                    scope.fields = arr*/
+                         for(var i = 0; i < actions.length; i++){
+                             arr.push({label:actions[i].name, value:actions[i].name})
+                         }
+                         scope.fields = arr*/
 
                     scope.fields = [
                         { name: 'LabourCost' },

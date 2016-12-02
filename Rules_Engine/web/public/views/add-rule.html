@@ -6,12 +6,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.js"></script>
     <link rel="import" href="/bower_components/px-view-header/px-view-header.html" />
+      <img alt="" class="loading_image" ng-show="isLoading" src="images/25.gif">
     <div class="wrapper">
         <div ng-controller="QueryBuilderCtrl">
-            <div role="tablist" aria-multiselectable="true">
-                <px-view-header title="Add New Rule Group">
-                    <button class="right btn btn-primary submit-button" ng-click="submitRule()">SUBMIT</button>
-                </px-view-header>
+            <div role="tablist" aria-multiselectable="true" class="top-container">
+                <!-- <px-view-header title="Add New Rule Group">
+                 
+                </px-view-header> -->
+               
                 <div class="rule-group-details">
                     <div class="rule-group-header" role="tab" id="headingThree">
                         <h5 class="mb-0 epsilon">Rule Group Details</h5>
@@ -86,49 +88,55 @@
                         </div>
                     </div>
                 </div>
-                    <div class="design-rule">
-                        <div class="rule-condition" role="tab" id="headingOne">
-                            <h5 class="mb-0 epsilon">RULE CONDITION</h5>
+                <div class="design-rule">
+                    <div class="rule-condition" role="tab" id="headingOne">
+                        <h5 class="mb-0 epsilon">RULE CONDITION</h5>
+                    </div>
+                    <query-builder group="jsonObjCond.group"></query-builder>
+                    <div class="rule-actions">
+                        <div class="rule-action-header" role="tab" id="headingOne">
+                            <h5 class="mb-0 epsilon">RULE ACTION</h5>
                         </div>
-                        <query-builder group="jsonObjCond.group"></query-builder>
-                        <div class="rule-actions">
-                            <div class="rule-action-header" role="tab" id="headingOne">
-                                <h5 class="mb-0 epsilon">RULE ACTION</h5>
-                            </div>
-                            <div class="rule-action-fields clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                        <label>
-                                            Select Action Type
-                                        </label>
-                                        <select ng-options="p.value as p.label for p in ruleAction" ng-model="selectedAction1" ng-change="onActionChange1(selectedAction1)" class="form-control input-sm">
+                        <div class="rule-action-fields clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label>
+                                        Select Action Type
+                                    </label>
+                                    <select ng-options="p.value as p.label for p in ruleAction" ng-model="selectedAction1" ng-change="onActionChange1(selectedAction1)" class="form-control input-sm">
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label>
+                                        Select Action
+                                    </label>
+                                    <select ng-options="p.value as p.label for p in ruleFormula" ng-model="selectedFormula1" ng-change="onFormulaChange1(selectedFormula1)" class="form-control input-sm">
+                                    </select>
+                                    <div class="rule-formula"  ng-hide="ruleCalculate.hide">
+                                        <select ng-options="p.value as p.label for p in ruleFormula" ng-model="selectedFormula2" ng-change="onFormulaChange2(selectedFormula2)" class="form-control input-sm">
                                         </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                        <label>
-                                            Select Action
-                                        </label>
-                                        <select ng-options="p.value as p.label for p in ruleFormula" ng-model="selectedFormula1" ng-change="onFormulaChange1(selectedFormula1)" class="form-control input-sm">
-                                        </select>
-                                        <div class="rule-formula">
-                                            <select ng-options="p.value as p.label for p in ruleFormula" ng-model="selectedFormula2" ng-change="onFormulaChange2(selectedFormula2)" class="form-control input-sm">
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                        <div class="condtions-and-actions" role="tab" id="headingOne">
-                            <h5 class="epsilon">RULE TEXT</h5>
-                            <h6>Condition and Action</h6>
-                            <div class="rule-text well"><span ng-bind-html="output"></span></div>
                         </div>
                     </div>
-                    <!-- <rules-condition group="jsonObjCond.group"></rules-condition> -->
-               <!--  </div> -->
+                    <div class="condtions-and-actions" role="tab" id="headingOne">
+                        <h5 class="epsilon">RULE TEXT</h5>
+                        <h6>Condition and Action</h6>
+                        <div class="rule-text well"><span ng-bind-html="output"></span></div>
+                    </div>
+                </div>
+                <!-- <rules-condition group="jsonObjCond.group"></rules-condition> -->
+                <!--  </div> -->
             </div>
+             <div class="alert alert-success alert-dismissable" ng-hide="success.message">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <strong>Success!</strong> The Rule Submitted Successfully.
+                    <p>Please visit Dashboard to check the Rule details</p>
+                </div>
+             <button class="right btn btn-primary submit-button pull-right" ng-click="submitRule() ">SUBMIT</button>
         </div>
-        <!--  <button class="right btn btn-primary" ng-click="submitRule()">SUBMIT</button> -->
+          
     </div>
     <script type="text/ng-template" id="/queryBuilderDirective.html">
         <div class="well query-builders">
@@ -167,5 +175,4 @@
 $(document).ready(function() {
     $('.submit-button.btn:not([style-scope])').addClass('style-scope');
 });
-
 </script>
