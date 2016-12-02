@@ -25,7 +25,7 @@ define(['angular', './sample-module'], function (angular, controllers) {
  					$scope.formulaParameterMap.push(temp1);
 				 });
  				$scope.isLoading = false;
- 				if($stateParams.ruleOperator === 'SERVICE') {
+ 				if($stateParams.ruleOperator === 'SERVICES') {
  					$scope.isServiceExecute = true;
  				}else if($stateParams.ruleOperator === 'CALCULATE') {
  					$scope.isCalculateExecute = true;
@@ -50,7 +50,7 @@ define(['angular', './sample-module'], function (angular, controllers) {
  				angular.forEach($scope.conditionParameterMap, function(value, key){
  					ruleValues[value.key] = value.value;
  				});
- 				if($stateParams.ruleOperator === 'SERVICE') {
+ 				if($stateParams.ruleOperator === 'SERVICES') {
  					angular.forEach($scope.formulaParameterMap, function(value, key){
  						serviceParam[value.key] = value.value;
  	 				});

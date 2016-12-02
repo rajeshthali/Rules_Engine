@@ -30,7 +30,7 @@ define(['angular', 'angular-ui-router'], function(angular) {
                 }
             })
             .state('dashboards', {
-                //parent: 'secure',
+                parent: 'secure',
                 url: '/dashboards',
                 templateUrl: 'views/display-rules.html',
                 controller : 'RulesDisplayController'
