@@ -37,7 +37,8 @@ define(['angular', 'angular-ui-router'], function(angular) {
             })
             .state('addNewRuleGroup', {
                 url: '/addNewRuleGroup',
-                templateUrl: 'views/blank-page.html'
+                templateUrl: 'views/add-rule.html',
+                controller : 'QueryBuilderCtrl'
             })
             .state('viewRules', {
                 url: '/viewRules',
@@ -56,7 +57,8 @@ define(['angular', 'angular-ui-router'], function(angular) {
                 url: '/editRule/{rulesId}',
                  views: {
                     '': {
-                    	templateUrl: 'views/blank-page.html'
+                    	templateUrl: 'views/add-rule.html',
+                        controller: 'RulesDetailsController'
                     }
                 }
               })
